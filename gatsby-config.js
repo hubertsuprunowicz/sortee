@@ -1,10 +1,44 @@
-/**
- * Configure your Gatsby site with this file.
- *
- * See: https://www.gatsbyjs.com/docs/gatsby-config/
- */
-
 module.exports = {
-  /* Your site config here */
-  plugins: [],
+  siteMetadata: {
+    title: `Sortee`,
+    description: `Learn how the sort algorithm works`,
+    author: `Hubert Suprunowicz`,
+    menuLinks: [
+      {
+        name: "Home",
+        link: "/",
+      },
+      {
+        name: "About us",
+        link: "/about",
+      },
+    ],
+  },
+  plugins: [
+    `gatsby-plugin-sitemap`,
+    `gatsby-plugin-robots-txt`,
+    `gatsby-plugin-react-helmet`,
+    `gatsby-transformer-sharp`,
+    // this (optional) plugin enables Progressive Web App + Offline functionality
+    // To learn more, visit: https://gatsby.dev/offline
+    // `gatsby-plugin-offline`,
+    `gatsby-plugin-typescript`,
+    `gatsby-plugin-styled-components`,
+    `gatsby-plugin-react-leaflet`,
+    `gatsby-transformer-json`,
+    {
+      resolve: `gatsby-plugin-webfonts`,
+      options: {
+        fonts: {
+          google: [
+            {
+              family: "Lato",
+              variants: ["400", "700"],
+              subsets: ["latin-ext"],
+            },
+          ],
+        },
+      },
+    },
+  ],
 }
