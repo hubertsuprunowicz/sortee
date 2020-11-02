@@ -17,10 +17,13 @@
     "@types/leaflet": "^1.5.5",
     "@types/react-leaflet": "^2.5.0",
     "@types/styled-components": "^4.4.0",
+    "animejs": "^3.2.0",
     "babel-plugin-styled-components": "^1.10.6",
     "body-scroll-lock": "^2.6.4",
+    "framer-motion": "^2.9.1",
     "gatsby": "^2.24.67",
     "gatsby-image": "^2.2.31",
+    "gatsby-plugin-google-fonts": "^1.0.1",
     "gatsby-plugin-manifest": "^2.2.27",
     "gatsby-plugin-offline": "^3.0.19",
     "gatsby-plugin-react-helmet": "^3.1.14",
@@ -46,6 +49,7 @@
     "styled-components": "~5.2.0"
   },
   "devDependencies": {
+    "@types/animejs": "^3.1.2",
     "@types/body-scroll-lock": "^2.6.1",
     "@types/react-helmet": "^5.0.14",
     "@types/react-select": "^3.0.8",

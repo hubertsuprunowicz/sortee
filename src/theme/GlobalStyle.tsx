@@ -1,5 +1,5 @@
-import { createGlobalStyle } from 'styled-components';
-import { theme } from './theme';
+import { createGlobalStyle } from "styled-components"
+import { theme } from "./theme"
 
 export const GlobalStyle = createGlobalStyle`
 
@@ -23,8 +23,14 @@ export const GlobalStyle = createGlobalStyle`
     }
   }
 
+  * {
+    font-family: Gaegu;
+  }
+
   body {
-    font-family: Lato;
+    /* font-family: Aubrey; */
+    /* font-family: Gaegu; */
+    /* font-family: Aubrey; */
     color: ${theme.colors.font.primary};
 
     /* Global font sizes and brakepoints */
@@ -66,6 +72,6 @@ export const GlobalStyle = createGlobalStyle`
       }
     }
   }
-`;
+`
 
-export default GlobalStyle;
+export default GlobalStyle

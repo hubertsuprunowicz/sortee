@@ -9,8 +9,8 @@ module.exports = {
         link: "/",
       },
       {
-        name: "About us",
-        link: "/about",
+        name: "Bubble sort",
+        link: "/bubble",
       },
     ],
   },
@@ -35,6 +35,16 @@ module.exports = {
               family: "Lato",
               variants: ["400", "700"],
               subsets: ["latin-ext"],
+            },
+            {
+              family: "Gaegu",
+              variants: ["400", "700"],
+              // subsets: ["latin-ext"],
+            },
+            {
+              family: "Aubrey",
+              variants: ["400", "700"],
+              // subsets: ["latin-ext"],
             },
           ],
         },
