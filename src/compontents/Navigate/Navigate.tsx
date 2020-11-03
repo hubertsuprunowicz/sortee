@@ -81,12 +81,12 @@ const toc: TableOfContent = {
     cursor: 10,
     nav: [
       {
-        endpoint: "/bubble/",
+        endpoint: "/sort/bubble",
         value: "Theory",
         cursor: 18,
       },
       {
-        endpoint: "/bubble/",
+        endpoint: "/sort/bubble",
         value: "Visualisation",
         cursor: 25,
       },
@@ -98,12 +98,12 @@ const toc: TableOfContent = {
     cursor: 25,
     nav: [
       {
-        endpoint: "/quick/",
+        endpoint: "/sort/quick",
         value: "Theory",
         cursor: 33,
       },
       {
-        endpoint: "/quick/",
+        endpoint: "/sort/quick",
         value: "Visualisation",
         cursor: 40,
       },
@@ -115,12 +115,12 @@ const toc: TableOfContent = {
     cursor: 40,
     nav: [
       {
-        endpoint: "/insertion/",
+        endpoint: "/sort/insertion",
         value: "Theory",
         cursor: 48,
       },
       {
-        endpoint: "/insertion/",
+        endpoint: "/sort/insertion",
         value: "Visualisation",
         cursor: 55,
       },
@@ -132,12 +132,12 @@ const toc: TableOfContent = {
     cursor: 55,
     nav: [
       {
-        endpoint: "/merge/",
+        endpoint: "/sort/merge",
         value: "Theory",
         cursor: 63,
       },
       {
-        endpoint: "/merge/",
+        endpoint: "/sort/merge",
         value: "Visualisation",
         cursor: 70,
       },
@@ -149,7 +149,7 @@ const toc: TableOfContent = {
     cursor: 76,
     nav: [
       {
-        endpoint: "/about/",
+        endpoint: "/sort/about",
         value: "TODO...",
         cursor: 85,
       },
@@ -195,9 +195,8 @@ const Accordion: React.FC<{
                 className="content-placeholder"
               >
                 <Link
-                  to={"/bubble/"}
+                  to={it.endpoint}
                   onClick={() => {
-                    console.log(it.cursor)
                     setCursor(it.cursor)
                   }}
                   activeClassName="active-link"

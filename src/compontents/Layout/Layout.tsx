@@ -23,7 +23,7 @@ const Header = styled.div`
 
 const Content = styled.div`
   display: flex;
-  height: 100%;
+  height: 100vh;
   width: 100%;
   padding: 20px;
   :first-child {
@@ -37,10 +37,10 @@ const Content = styled.div`
 
 const Main = styled.main`
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  justify-content: space-around;
   align-items: center;
   height: 100%;
-  padding-top: 200px;
 `
 
 const Layout: React.FC = ({ children }) => {
@@ -48,11 +48,6 @@ const Layout: React.FC = ({ children }) => {
     <Provider>
       <GlobalStyle />
       <SiteLayout>
-        <Header>
-          <Link to="/" activeClassName={"active-link"}>
-            home
-          </Link>
-        </Header>
         <Content>
           <Navigate />
           <Main>{children}</Main>

@@ -28,9 +28,6 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   body {
-    /* font-family: Aubrey; */
-    /* font-family: Gaegu; */
-    /* font-family: Aubrey; */
     color: ${theme.colors.font.primary};
 
     /* Global font sizes and brakepoints */
