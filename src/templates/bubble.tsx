@@ -52,7 +52,7 @@ const BubbleSort: React.FC<{ path: string }> = () => {
       </h2>
       <BoxHolder>
         {numArr.map(it => (
-          <Box>{it}</Box>
+          <Box key={it}>{it}</Box>
         ))}
       </BoxHolder>
       <ButtonNext onClick={handleNext}>

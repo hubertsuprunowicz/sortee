@@ -1,7 +1,7 @@
 import styled from "styled-components"
 import { theme } from "../../theme"
 import { AnimatePresence, motion } from "framer-motion"
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useRef, useState } from "react"
 import { Link } from "gatsby"
 
 const Wrapper = styled.div`
@@ -68,8 +68,7 @@ const Cursor = styled(motion.div)`
 type NavContent = {
   id: number
   name: string
-  cursor: number
-  nav: { endpoint: string; value: string; cursor: number }[]
+  nav: { endpoint: string; value: string }[]
 }
 
 type TableOfContent = { [key: string]: NavContent }
@@ -78,80 +77,66 @@ const toc: TableOfContent = {
   0: {
     id: 0,
     name: "Bubble sort",
-    cursor: 10,
     nav: [
       {
         endpoint: "/sort/bubble",
         value: "Theory",
-        cursor: 18,
       },
       {
         endpoint: "/sort/bubble",
         value: "Visualisation",
-        cursor: 25,
       },
     ],
   },
   1: {
     id: 1,
     name: "Quick sort",
-    cursor: 25,
     nav: [
       {
         endpoint: "/sort/quick",
         value: "Theory",
-        cursor: 33,
       },
       {
         endpoint: "/sort/quick",
         value: "Visualisation",
-        cursor: 40,
       },
     ],
   },
   2: {
     id: 2,
     name: "Insertion sort",
-    cursor: 40,
     nav: [
       {
         endpoint: "/sort/insertion",
         value: "Theory",
-        cursor: 48,
       },
       {
         endpoint: "/sort/insertion",
         value: "Visualisation",
-        cursor: 55,
       },
     ],
   },
   3: {
     id: 3,
     name: "Merge sort",
-    cursor: 55,
     nav: [
       {
         endpoint: "/sort/merge",
         value: "Theory",
-        cursor: 63,
       },
       {
         endpoint: "/sort/merge",
         value: "Visualisation",
-        cursor: 70,
       },
     ],
   },
   4: {
     id: 4,
     name: "About",
-    cursor: 76,
     nav: [
       {
         endpoint: "/sort/about",
         value: "TODO...",
-        cursor: 85,
       },
     ],
   },
@@ -163,21 +148,29 @@ const Accordion: React.FC<{
   setExpanded: (arg: number) => any
   setCursor: (arg: number) => any
 }> = ({ content, expanded, setExpanded, setCursor }) => {
+  const [top, setTop] = useState(0)
+  const refContainer = useRef<any>(this)
   const isOpen = content.id === expanded
 
+  useEffect(() => {
+    const y = refContainer?.current?.getBoundingClientRect()?.y
+    const height = refContainer?.current?.getBoundingClientRect()?.height
+    setTop(content.id > 0 ? y - height : y)
+  }, [])
+
   const handleClick = () => {
-    setCursor(content.cursor)
+    setCursor(top)
     setExpanded(isOpen ? -1 : content.id)
   }
+
   return (
-    <li style={{ cursor: "pointer" }}>
+    <li ref={refContainer as any} style={{ cursor: "pointer" }}>
       <motion.header initial={false} onClick={handleClick}>
         {content.name}
       </motion.header>
       <AnimatePresence initial={false}>
         {isOpen && (
           <motion.ul
-            key="content"
             initial="collapsed"
             animate="open"
             exit="collapsed"
@@ -187,9 +180,10 @@ const Accordion: React.FC<{
             }}
             transition={{ duration: 0.8, ease: [0.04, 0.62, 0.23, 0.98] }}
           >
-            {content.nav.map(it => (
+            {content.nav.map((it, index) => (
               <motion.li
                 key={it.value}
+                ref={refContainer as any}
                 variants={{ collapsed: { scale: 0.8 }, open: { scale: 1 } }}
                 transition={{ ease: "easeOut", duration: 1 }}
                 className="content-placeholder"
@@ -197,7 +191,7 @@ const Accordion: React.FC<{
                 <Link
                   to={it.endpoint}
                   onClick={() => {
-                    setCursor(it.cursor)
+                    setCursor(top + (index + 1) * 40)
                   }}
                   activeClassName="active-link"
                 >
@@ -223,7 +217,7 @@ const Navigate = () => {
   return (
     <Wrapper>
       <NavLine>
-        <Cursor animate={{ top: `${cursor}%` }} />
+        <Cursor animate={{ top: cursor }} />
       </NavLine>
       <Container>
         {Object.values(toc).map(it => (
