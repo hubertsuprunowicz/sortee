@@ -7,7 +7,11 @@ import { Link } from "gatsby"
 const Wrapper = styled.div`
   display: flex;
   height: 100%;
-  width: 100%;
+  width: 30%;
+
+  @media only screen and (max-width: ${theme.breakpoints[2]}px) {
+    display: none;
+  }
 `
 
 const NavLine = styled.div`
@@ -79,12 +83,12 @@ const toc: TableOfContent = {
     name: "Bubble sort",
     nav: [
       {
-        endpoint: "/sort/bubble",
+        endpoint: "/sort/bubble/theory",
         value: "Theory",
       },
       {
-        endpoint: "/sort/bubble",
-        value: "Visualisation",
+        endpoint: "/sort/bubble/visualization",
+        value: "Visualization",
       },
     ],
   },
@@ -207,6 +211,7 @@ const Accordion: React.FC<{
 }
 
 const Navigate = () => {
+  const [isOpen, setIsOpen] = useState(false)
   const [expanded, setExpanded] = useState<number>(0)
   const [cursor, setCursor] = useState<number>(0)
 

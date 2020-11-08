@@ -21,20 +21,42 @@ const Wrapper = styled.div`
   align-items: center;
   height: 100%;
 `
+const TextHolder = styled.div`
+  margin-top: 40px;
+  max-width: 600px;
+`
 
 const BoxHolder = styled.div`
+  margin-top: 60px;
+
   > div {
     display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+
+    @media only screen and (max-width: ${theme.breakpoints[2]}px) {
+      margin-top: 0;
+      h2 {
+        font-size: ${theme.fontSizes[0]}rem !important;
+      }
+    }
   }
 `
 
-const TextHolder = styled.div`
-  width: 70%;
-`
-
 const ButtonNext = styled(motion.button)`
-  width: 125px;
-  height: 75px;
+  max-width: 125px;
+  max-height: 75px;
+
+  min-width: 80px;
+  width: 10vw;
+  min-height: 50px;
+  height: 7vw;
+
+  svg {
+    width: 70%;
+    height: 70%;
+  }
+
   background: #ffffff;
   box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 42px;

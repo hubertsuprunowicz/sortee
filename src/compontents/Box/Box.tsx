@@ -12,17 +12,42 @@ const StyledBox = styled.button<{
   bg: string
   borderColor: string
 }>`
+  @keyframes rotation {
+    0% {
+      transform: rotate(0deg);
+    }
+    25% {
+      transform: rotate(90deg);
+    }
+    50% {
+      transform: rotate(180deg);
+    }
+    75% {
+      transform: rotate(270deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
+  // TODO: calc(x - size)
+  min-width: 70px;
+  width: 8vw;
+  max-width: 110px;
+
+  min-height: 70px;
+  height: 8vw;
+  max-height: 110px;
+
   position: relative;
   display: flex;
   justify-content: center;
   text-align: center;
   align-items: center;
   font-family: Aubrey;
-  font-size: ${theme.fontSizes[11]}rem;
   color: ${props => (props.isDisabled ? "#444" : "black")};
   background-color: ${props => (props.isDisabled ? "grey" : props.bg)};
-  width: ${props => boxSize[props.size]}px;
-  height: ${props => boxSize[props.size]}px;
+
   border-radius: 32px;
   box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
   margin: 25px;
@@ -31,14 +56,30 @@ const StyledBox = styled.button<{
 
   :after {
     content: "";
+    // animation: rotation 1s infinite step-end;
     position: absolute;
     top: -12px;
     left: -12px;
     bottom: -12px;
     right: -12px;
     border-radius: 42px;
-    border: ${props => (props.isActive ? 10 : 0)}px dashed
+    border: ${props => (props.isActive ? 5 : 0)}px dashed
       ${props => props.borderColor};
+  }
+
+  font-size: ${theme.fontSizes[11]}rem;
+
+  @media only screen and (max-width: ${theme.breakpoints[4]}px) {
+    font-size: ${theme.fontSizes[10]}rem !important;
+  }
+
+  @media only screen and (max-width: ${theme.breakpoints[2]}px) {
+    font-size: ${theme.fontSizes[9]}rem !important;
+
+    :after {
+      border: ${props => (props.isActive ? 4 : 0)}px dashed
+        ${props => props.borderColor};
+    }
   }
 `
 
@@ -64,7 +105,7 @@ const Box: React.FC<{
   ) => {
     return (
       <StyledBox
-        ref={ref}
+        ref={ref as any}
         isActive={isDisabled ? false : isActive}
         isDisabled={isDisabled}
         color={color}

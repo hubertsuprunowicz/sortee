@@ -26,13 +26,6 @@ const Content = styled.div`
   height: 100vh;
   width: 100%;
   padding: 20px;
-  :first-child {
-    /* flex: 33%; */
-  }
-
-  :last-child {
-    /* flex: 66%; */
-  }
 `
 
 const Main = styled.main`
@@ -41,6 +34,7 @@ const Main = styled.main`
   justify-content: space-around;
   align-items: center;
   height: 100%;
+  padding: 0 10vw;
 
   /* Routing */
   > div {
