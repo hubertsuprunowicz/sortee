@@ -41,6 +41,11 @@ const Main = styled.main`
   justify-content: space-around;
   align-items: center;
   height: 100%;
+
+  /* Routing */
+  > div {
+    height: 100%;
+  }
 `
 
 const Layout: React.FC = ({ children }) => {

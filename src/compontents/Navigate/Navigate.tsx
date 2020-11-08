@@ -153,9 +153,9 @@ const Accordion: React.FC<{
   const isOpen = content.id === expanded
 
   useEffect(() => {
-    const y = refContainer?.current?.getBoundingClientRect()?.y
+    const itemTop = refContainer?.current?.getBoundingClientRect()?.top
     const height = refContainer?.current?.getBoundingClientRect()?.height
-    setTop(content.id > 0 ? y - height : y)
+    setTop(content.id > 0 ? itemTop - height : itemTop)
   }, [])
 
   const handleClick = () => {

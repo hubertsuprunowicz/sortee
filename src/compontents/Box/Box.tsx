@@ -1,11 +1,12 @@
-import React, { useRef, useState } from "react"
+import React, { forwardRef, useRef, useState } from "react"
 import styled from "styled-components"
 import { theme } from "../../theme"
 
-const boxSize = [36, 68, 84, 96, 112]
+const boxSize = [36, 68, 84, 96, 102]
 
 const StyledBox = styled.button<{
   isActive: boolean
+  isDisabled: boolean
   color: string
   size: number
   bg: string
@@ -18,8 +19,8 @@ const StyledBox = styled.button<{
   align-items: center;
   font-family: Aubrey;
   font-size: ${theme.fontSizes[11]}rem;
-  color: black;
-  background-color: #${props => props.bg};
+  color: ${props => (props.isDisabled ? "#444" : "black")};
+  background-color: ${props => (props.isDisabled ? "grey" : props.bg)};
   width: ${props => boxSize[props.size]}px;
   height: ${props => boxSize[props.size]}px;
   border-radius: 32px;
@@ -36,7 +37,8 @@ const StyledBox = styled.button<{
     bottom: -12px;
     right: -12px;
     border-radius: 42px;
-    border: 10px dashed #${props => props.borderColor};
+    border: ${props => (props.isActive ? 10 : 0)}px dashed
+      ${props => props.borderColor};
   }
 `
 
@@ -44,27 +46,36 @@ const Box: React.FC<{
   color?: string
   size?: number
   isActive?: boolean
+  isDisabled?: boolean
   bg?: string
   borderColor?: string
-}> = ({
-  color = "black",
-  size = 4,
-  isActive = true,
-  bg = "fff",
-  borderColor = "7C54EF",
-  children,
-}) => {
-  return (
-    <StyledBox
-      isActive={isActive}
-      color={color}
-      size={size}
-      bg={bg}
-      borderColor={borderColor}
-    >
-      {children}
-    </StyledBox>
-  )
-}
+}> = forwardRef(
+  (
+    {
+      color = "black",
+      size = 4,
+      isActive = true,
+      isDisabled = false,
+      bg = "#fff",
+      borderColor = "#7C54EF",
+      children,
+    },
+    ref
+  ) => {
+    return (
+      <StyledBox
+        ref={ref}
+        isActive={isDisabled ? false : isActive}
+        isDisabled={isDisabled}
+        color={color}
+        size={size}
+        bg={bg}
+        borderColor={borderColor}
+      >
+        {children}
+      </StyledBox>
+    )
+  }
+)
 
 export default Box
