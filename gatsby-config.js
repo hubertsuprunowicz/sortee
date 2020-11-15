@@ -27,6 +27,13 @@ module.exports = {
     `gatsby-plugin-react-leaflet`,
     `gatsby-transformer-json`,
     {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: `graveyard`,
+        path: `${__dirname}/src/data/`,
+      },
+    },
+    {
       resolve: `gatsby-plugin-webfonts`,
       options: {
         fonts: {

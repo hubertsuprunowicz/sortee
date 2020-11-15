@@ -1,0 +1,9 @@
+[
+        {"step": 0, "text":"Starting Bubble Sort"},
+        {"step": 1, "text":"For each pass, we will move left to right swapping adjacent elements as needed. Each pass moves the next largest element into its final position (these will be shown in purple)"},
+        {"step": 2, "text":"Starting pass"},
+        {"step": 3, "text":"Compare elements"},
+        {"step": 4, "text":"Swap"},
+        {"step": 5, "text":"Done this pass. The last element processed is now in its final position."},
+        {"step": 6, "text":"End."}
+]

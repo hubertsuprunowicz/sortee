@@ -6,16 +6,11 @@ import QuickPage from "../templates/quick"
 import { Link } from "gatsby"
 import { render } from "react-dom"
 import BubbleTheory from "../templates/bubble-theory"
+import QuickSort from "../templates/quick"
 
 const Default: any = () => (
   <div>
     <h2>Default</h2>
-  </div>
-)
-
-const QuickSort: any = () => (
-  <div>
-    <h2>QuickSort</h2>
   </div>
 )
 
@@ -37,7 +32,8 @@ const App = () => {
       <Router basepath="/sort">
         <BubbleTheory path="/bubble/theory" />
         <BubbleSort path="/bubble/visualization" />
-        <QuickSort path="/quick" />
+        <QuickSort path="/quick/theory" />
+        <QuickSort path="/quick/visualization" />
         <InsertionSort path="/insertion" />
         <MergeSort path="/merge" />
         <Default path="/sort" />

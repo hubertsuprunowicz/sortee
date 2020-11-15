@@ -1,4 +1,4 @@
-import { graphql, useStaticQuery } from "gatsby"
+import { graphql, StaticQuery, useStaticQuery } from "gatsby"
 import React, {
   createRef,
   useEffect,
@@ -24,6 +24,7 @@ const Wrapper = styled.div`
 const TextHolder = styled.div`
   margin-top: 40px;
   max-width: 600px;
+  height: 140px;
 `
 
 const BoxHolder = styled.div`
@@ -85,20 +86,38 @@ const initToSortArr = numArr.reduce<{ [key: number]: SortValue }>(
 )
 
 const BubbleSort: React.FC<{ path: string }> = () => {
-  const [loop, setLoop] = useState(0)
+  const [step, setStep] = useState<number>(0)
+  const [loop, setLoop] = useState<number>(0)
   const [compareIndex, setCompareIndex] = useState(0)
   const [toSortArr, setToSortArr] = useState<{
     [key: number]: SortValue
   }>(initToSortArr)
 
+  const data = useStaticQuery(graphql`
+    query {
+      allBubbleJson {
+        nodes {
+          step
+          text
+        }
+      }
+    }
+  `)
+
   const handleBubbleAlgorithmNextStep = () => {
-    if (loop === TOTAL - 1) {
-      setLoop(old => old + 1)
+    if (step === 5) {
+      setStep(2)
       return
     }
 
+    if (step < 3) {
+      setStep(old => old + 1)
+      return
+    }
+
+    // Swap handle
     if (toSortArr[compareIndex].value >= toSortArr[compareIndex + 1].value) {
-      // Swap
+      setStep(4)
       setToSortArr(old => {
         return {
           ...old,
@@ -108,9 +127,18 @@ const BubbleSort: React.FC<{ path: string }> = () => {
       })
     }
 
+    // End of loop
+    if (loop >= TOTAL - 2) {
+      setLoop(old => old + 2)
+      setStep(6)
+      return
+    }
+
     setCompareIndex(old => old + 1)
 
+    // Start from beginning (-1)
     if (compareIndex === TOTAL - 2 - loop) {
+      setStep(5)
       setLoop(old => old + 1)
       setCompareIndex(0)
     }
@@ -118,12 +146,10 @@ const BubbleSort: React.FC<{ path: string }> = () => {
 
   return (
     <Wrapper>
-      {/* TODO: GraphQL query from json */}
       <TextHolder>
         <h2>
-          For each pass, we will move left to right swapping adjacent elements
-          as needed. Each pass moves the next largest element into its final
-          position (these will be shown in grey).
+          {data.allBubbleJson.nodes[step].text}{" "}
+          <span>{step === 2 && loop}</span>
         </h2>
       </TextHolder>
       <BoxHolder>

@@ -97,12 +97,12 @@ const toc: TableOfContent = {
     name: "Quick sort",
     nav: [
       {
-        endpoint: "/sort/quick",
+        endpoint: "/sort/quick/theory",
         value: "Theory",
       },
       {
-        endpoint: "/sort/quick",
-        value: "Visualisation",
+        endpoint: "/sort/quick/visualization",
+        value: "Visualization",
       },
     ],
   },
@@ -116,7 +116,7 @@ const toc: TableOfContent = {
       },
       {
         endpoint: "/sort/insertion",
-        value: "Visualisation",
+        value: "Visualization",
       },
     ],
   },
@@ -130,7 +130,7 @@ const toc: TableOfContent = {
       },
       {
         endpoint: "/sort/merge",
-        value: "Visualisation",
+        value: "Visualization",
       },
     ],
   },
