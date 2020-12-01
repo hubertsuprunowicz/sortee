@@ -7,6 +7,7 @@ import { Link } from "gatsby"
 import { render } from "react-dom"
 import BubbleTheory from "../templates/bubble-theory"
 import QuickSort from "../templates/quick"
+import InsertionSort from "../templates/insertion"
 
 const Default: any = () => (
   <div>
@@ -14,11 +15,11 @@ const Default: any = () => (
   </div>
 )
 
-const InsertionSort: any = () => (
-  <div>
-    <h2>InsertionSort</h2>
-  </div>
-)
+// const InsertionSort: any = () => (
+//   <div>
+//     <h2>InsertionSort</h2>
+//   </div>
+// )
 
 const MergeSort: any = () => (
   <div>
