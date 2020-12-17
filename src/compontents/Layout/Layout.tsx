@@ -34,7 +34,7 @@ const Main = styled.main`
   justify-content: space-around;
   align-items: center;
   height: 100%;
-  padding: 0 10vw;
+  padding: 0 3vw;
 
   /* Routing */
   > div {

@@ -112,6 +112,7 @@ const Box: React.FC<{
         size={size}
         bg={bg}
         borderColor={borderColor}
+        className="box"
       >
         {children}
       </StyledBox>

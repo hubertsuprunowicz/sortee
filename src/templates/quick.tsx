@@ -27,13 +27,31 @@ const TextHolder = styled.div`
   max-width: 600px;
 `
 
-const BoxHolder = styled.div`
-  margin-top: 60px;
+const Separator = styled.div`
+  width: 50px;
+  height: 50px;
+  margin-right: 5px;
+`
+
+const BoxHolder = styled.div<{ isSmaller: boolean }>`
+  margin-top: 0px;
 
   > div {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+
+    .box {
+      ${props => {
+        if (props.isSmaller) {
+          return {
+            width: "15px",
+            height: "15px",
+            fontSize: theme.fontSizes[6] + "rem",
+          }
+        }
+      }}
+    }
 
     @media only screen and (max-width: ${theme.breakpoints[2]}px) {
       margin-top: 0;
@@ -88,20 +106,29 @@ const numArr: SortValue[] = Array.from({ length: TOTAL }, () => {
 
 const QuickSort: React.FC<{ path: string }> = () => {
   const [divide, setDivide] = useState(0)
-  const [divideArr, setDivideArr] = useState(0)
   const [step, setStep] = useState(0)
-  const [pivot, setPivot] = useState(Math.floor(numArr.length / 2))
+  const [pivotIter, setPivotIter] = useState(1)
+  const [pivot, setPivot] = useState<number[][]>([
+    [Math.floor(numArr.length / 2)],
+    [-1],
+    [-1],
+    [-1],
+    [-1],
+    [-1],
+    [-1],
+  ])
 
-  const [toSortArr, setToSortArr] = useState<any[][][]>([
-    // First step, before `divide nad conquer` logic
+  const [toSortArr, setToSortArr] = useState<any>([
+    // First step, before `divide and conquer` logic
     [numArr],
     // At this moment, there are maxmum 2 possibilites.
     // Previous array will be divided into 1 or 2 pieces
     // depends on extremes of pivot (left, right or in-betweeen)
     [[], []],
-    [[], [], [], []],
-    // Maximum probability for size of 8 numbers
     [[], [], [], [], [], [], [], []],
+    // Maximum probability for size of 8 numbers
+    [[], [], [], [], [], [], [], [], [], [], [], [], [], [], []],
+    [[], [], [], [], [], [], [], [], [], [], [], [], [], [], []],
   ])
 
   const middle = Math.floor(numArr.length / 2)
@@ -115,6 +142,11 @@ const QuickSort: React.FC<{ path: string }> = () => {
           old[0][0][middle],
         ]
 
+        return old
+      })
+
+      setPivot(old => {
+        old[0][0] = toSortArr[0][0][middle].id
         return old
       })
     }
@@ -136,43 +168,179 @@ const QuickSort: React.FC<{ path: string }> = () => {
         }
       }
 
-      setPivot(tempPivot)
+      // divide and conquer
       setToSortArr(old => {
         old[0][0] = [...smaller, cpyOfArrToRead[tempPivot], ...larger]
         old[1][0] = [...smaller]
         old[1][1] = [...larger]
         return old
       })
-    }
 
-    // divide and conquer
-    if (step === 3) {
       setDivide(old => old + 1)
     }
 
+    // set pivot for divided arrays - second row
+    if (step === 2) {
+      toSortArr[1].forEach((it, index) => {
+        if (it.length > 0) {
+          setPivot(old => {
+            old[1][index] = it[it.length - 1].id
+            return [...old]
+          })
+          setPivotIter(old => old + 1)
+        }
+      })
+    }
+
+    // sort divided arrays
+    if (step === 3) {
+      toSortArr[1].forEach((it, index) => {
+        if (it.length > 0) {
+          sortArr(index)
+        }
+      })
+
+      setDivide(old => old + 1)
+    }
+
+    // set pivot for divided arrays - third row
+    if (step === 4) {
+      toSortArr[2].forEach((it, index) => {
+        if (it.length > 0) {
+          setPivot(old => {
+            old[2][index] = it[it.length - 1].id
+            return [...old]
+          })
+
+          setPivotIter(old => old + 1)
+        }
+      })
+    }
+
+    // sort divided arrays
+    if (step === 5) {
+      toSortArr[2].forEach((it, index) => {
+        if (it.length > 0) {
+          sortArr(index)
+        }
+      })
+
+      setDivide(old => old + 1)
+    }
+
+    // set pivot for divided arrays - fourth row
+    if (step === 6) {
+      toSortArr[3].forEach((it, index) => {
+        if (it.length > 0) {
+          setPivot(old => {
+            old[3][index] = it[it.length - 1].id
+            return [...old]
+          })
+          setPivotIter(old => old + 1)
+        }
+      })
+    }
+
+    // sort divided arrays
+    if (step === 7) {
+      toSortArr[3].forEach((it, index) => {
+        if (it.length > 0) {
+          sortArr(index)
+        }
+      })
+
+      setDivide(old => old + 1)
+    }
+
+    // set pivot for divided arrays - fifth row
+    if (step === 8) {
+      toSortArr[4].forEach((it, index) => {
+        if (it.length > 0) {
+          setPivot(old => {
+            old[4][index] = it[it.length - 1].id
+            return [...old]
+          })
+          setPivotIter(old => old + 1)
+        }
+      })
+    }
+
+    // sort divided arrays
+    if (step === 9) {
+      toSortArr[4].forEach((it, index) => {
+        if (it.length > 0) {
+          sortArr(index)
+        }
+      })
+
+      setDivide(old => old + 1)
+    }
+
+    // Indexing
     setStep(old => old + 1)
   }
 
-  const handleIsActive = useCallback(
-    (index: number) => {
-      if (step === 0) {
-        return index === TOTAL - 1
-      }
-
-      if (step >= 1) {
-        return index === pivot
-      }
-
-      return false
-    },
-    [pivot]
-  )
-
+  console.log("step", step)
+  console.log("toSortArr")
+  console.log(toSortArr)
   console.log("pivot")
   console.log(pivot)
 
-  console.log("Object.values(toSortArr)")
-  console.log(toSortArr)
+  const sortArr = (indexOfArr: number) => {
+    let smaller: SortValue[] = []
+    let larger: SortValue[] = []
+
+    const cpyOfArrToRead = toSortArr[divide][indexOfArr].slice(0)
+    const tempPivot = cpyOfArrToRead.length - 1
+
+    for (let index = 0; index < cpyOfArrToRead.length; index++) {
+      if (index === tempPivot) continue
+
+      if (cpyOfArrToRead[index].value <= cpyOfArrToRead[tempPivot].value) {
+        smaller.push(cpyOfArrToRead[index])
+      } else {
+        larger.push(cpyOfArrToRead[index])
+      }
+    }
+
+    // divide and conquer
+    setToSortArr(old => {
+      old[divide][indexOfArr] = [
+        ...smaller,
+        cpyOfArrToRead[tempPivot],
+        ...larger,
+      ]
+
+      console.log("\n")
+      console.log(smaller)
+      console.log(tempPivot)
+      console.log(larger)
+      console.log("\n")
+
+      old[divide + 1][indexOfArr + indexOfArr] = [...smaller]
+      old[divide + 1][indexOfArr + indexOfArr + 1] = [...larger]
+      return old
+    })
+  }
+
+  const handleIsActive = (index: number, pivot: number) => {
+    if (step === 0) {
+      return index === TOTAL - 1
+    }
+
+    if (step >= 1) {
+      return index === pivot
+    }
+
+    return false
+  }
+
+  // End handler
+  useEffect(() => {
+    if (pivotIter === TOTAL) {
+      console.log("Endied")
+    }
+  }, [pivotIter])
 
   return (
     <Wrapper>
@@ -182,10 +350,10 @@ const QuickSort: React.FC<{ path: string }> = () => {
       </TextHolder>
 
       {/* 1ST ROW */}
-      <BoxHolder>
+      <BoxHolder isSmaller={divide > 0}>
         <FlipMove>
           {toSortArr[0][0].map(({ id, value }, index) => (
-            <Box isActive={handleIsActive(id)} key={id}>
+            <Box isActive={handleIsActive(id, pivot?.[0]?.[0])} key={id}>
               {value}
             </Box>
           ))}
@@ -194,24 +362,22 @@ const QuickSort: React.FC<{ path: string }> = () => {
 
       {/* 2ND ROW */}
       {toSortArr?.[1]?.[0] && (
-        <BoxHolder>
+        <BoxHolder isSmaller={divide > 1}>
           <FlipMove>
             {/* 1ST COLUMN */}
             {toSortArr?.[1]?.[0] &&
               Object.values(toSortArr[1][0]).map(({ id, value }, index) => (
-                <Box isActive={handleIsActive(id)} key={id}>
+                <Box isActive={handleIsActive(id, pivot?.[1]?.[0])} key={id}>
                   {value}
                 </Box>
               ))}
 
-            <div
-              style={{ width: "50px", height: "50px", marginRight: "5px" }}
-            />
+            <Separator />
 
             {/* 2ND COLUMN */}
             {toSortArr?.[1]?.[1] &&
               Object.values(toSortArr[1][1]).map(({ id, value }, index) => (
-                <Box isActive={handleIsActive(id)} key={id}>
+                <Box isActive={handleIsActive(id, pivot?.[1]?.[1])} key={id}>
                   {value}
                 </Box>
               ))}
@@ -221,26 +387,195 @@ const QuickSort: React.FC<{ path: string }> = () => {
 
       {/* 3RD ROW */}
       {toSortArr?.[2]?.[0] && (
-        <BoxHolder>
+        <BoxHolder isSmaller={divide > 2}>
           <FlipMove>
-            {Object.values(toSortArr[2][0]).map(({ id, value }, index) => (
-              <Box isActive={handleIsActive(id)} key={id}>
-                {value}
-              </Box>
-            ))}
+            {/* 1ST COLUMN */}
+            {toSortArr?.[2]?.[0] &&
+              Object.values(toSortArr[2][0]).map(({ id, value }, index) => (
+                <Box isActive={handleIsActive(id, pivot?.[2]?.[0])} key={id}>
+                  {value}
+                </Box>
+              ))}
+
+            <Separator />
+
+            {/* 2ND COLUMN */}
+            {toSortArr?.[2]?.[1] &&
+              Object.values(toSortArr[2][1]).map(({ id, value }, index) => (
+                <Box isActive={handleIsActive(id, pivot?.[2]?.[1])} key={id}>
+                  {value}
+                </Box>
+              ))}
+
+            <Separator />
+
+            {/* 3RD COLUMN */}
+            {toSortArr?.[2]?.[2] &&
+              Object.values(toSortArr[2][2]).map(({ id, value }, index) => (
+                <Box isActive={handleIsActive(id, pivot?.[2]?.[2])} key={id}>
+                  {value}
+                </Box>
+              ))}
+
+            <Separator />
+
+            {/* 4TH COLUMN */}
+            {toSortArr?.[2]?.[3] &&
+              Object.values(toSortArr[2][3]).map(({ id, value }, index) => (
+                <Box isActive={handleIsActive(id, pivot?.[2]?.[3])} key={id}>
+                  {value}
+                </Box>
+              ))}
           </FlipMove>
         </BoxHolder>
       )}
 
-      {/* 4ND ROW */}
-      {toSortArr?.[2]?.[0] && (
-        <BoxHolder>
+      {/* 4TH ROW */}
+      {toSortArr?.[3]?.[0] && (
+        <BoxHolder isSmaller={divide > 3}>
           <FlipMove>
-            {Object.values(toSortArr[2][0]).map(({ id, value }, index) => (
-              <Box isActive={handleIsActive(id)} key={id}>
-                {value}
-              </Box>
-            ))}
+            {/* 1ST COLUMN */}
+            {toSortArr?.[3]?.[0] &&
+              Object.values(toSortArr[3][0]).map(({ id, value }, index) => (
+                <Box isActive={handleIsActive(id, pivot?.[3]?.[0])} key={id}>
+                  {value}
+                </Box>
+              ))}
+
+            <Separator />
+
+            {/* 2ND COLUMN */}
+            {toSortArr?.[3]?.[1] &&
+              Object.values(toSortArr[3][1]).map(({ id, value }, index) => (
+                <Box isActive={handleIsActive(id, pivot?.[3]?.[1])} key={id}>
+                  {value}
+                </Box>
+              ))}
+
+            <Separator />
+
+            {/* 3RD COLUMN */}
+            {toSortArr?.[3]?.[2] &&
+              Object.values(toSortArr[3][2]).map(({ id, value }, index) => (
+                <Box isActive={handleIsActive(id, pivot?.[3]?.[2])} key={id}>
+                  {value}
+                </Box>
+              ))}
+
+            <Separator />
+
+            {/* 4TH COLUMN */}
+            {toSortArr?.[3]?.[3] &&
+              Object.values(toSortArr[3][3]).map(({ id, value }, index) => (
+                <Box isActive={handleIsActive(id, pivot?.[3]?.[3])} key={id}>
+                  {value}
+                </Box>
+              ))}
+
+            <Separator />
+
+            {/* 5TH COLUMN */}
+            {toSortArr?.[3]?.[4] &&
+              Object.values(toSortArr[3][4]).map(({ id, value }, index) => (
+                <Box isActive={handleIsActive(id, pivot?.[3]?.[4])} key={id}>
+                  {value}
+                </Box>
+              ))}
+
+            <Separator />
+
+            {/* 6TH COLUMN */}
+            {toSortArr?.[3]?.[5] &&
+              Object.values(toSortArr[3][5]).map(({ id, value }, index) => (
+                <Box isActive={handleIsActive(id, pivot?.[3]?.[5])} key={id}>
+                  {value}
+                </Box>
+              ))}
+
+            <Separator />
+
+            {/* 7TH COLUMN */}
+            {toSortArr?.[3]?.[6] &&
+              Object.values(toSortArr[3][6]).map(({ id, value }, index) => (
+                <Box isActive={handleIsActive(id, pivot?.[3]?.[6])} key={id}>
+                  {value}
+                </Box>
+              ))}
+
+            <Separator />
+
+            {/* 8TH COLUMN */}
+            {toSortArr?.[3]?.[7] &&
+              Object.values(toSortArr[3][7]).map(({ id, value }, index) => (
+                <Box isActive={handleIsActive(id, pivot?.[3]?.[7])} key={id}>
+                  {value}
+                </Box>
+              ))}
+          </FlipMove>
+        </BoxHolder>
+      )}
+
+      {/* 5TH ROW */}
+      {toSortArr?.[4]?.[0] && (
+        <BoxHolder isSmaller={divide > 4}>
+          <FlipMove>
+            {/* 1ST COLUMN */}
+            {toSortArr?.[4]?.[0] &&
+              Object.values(toSortArr[4][0]).map(({ id, value }, index) => (
+                <Box isActive={handleIsActive(id, pivot?.[4]?.[0])} key={id}>
+                  {value}
+                </Box>
+              ))}
+
+            <Separator />
+
+            {/* 2ND COLUMN */}
+            {toSortArr?.[4]?.[1] &&
+              Object.values(toSortArr[4][1]).map(({ id, value }, index) => (
+                <Box isActive={handleIsActive(id, pivot?.[4]?.[1])} key={id}>
+                  {value}
+                </Box>
+              ))}
+
+            <Separator />
+
+            {/* 3RD COLUMN */}
+            {toSortArr?.[4]?.[2] &&
+              Object.values(toSortArr[4][2]).map(({ id, value }, index) => (
+                <Box isActive={handleIsActive(id, pivot?.[4]?.[2])} key={id}>
+                  {value}
+                </Box>
+              ))}
+
+            <Separator />
+
+            {/* 4TH COLUMN */}
+            {toSortArr?.[4]?.[3] &&
+              Object.values(toSortArr[4][3]).map(({ id, value }, index) => (
+                <Box isActive={handleIsActive(id, pivot?.[4]?.[3])} key={id}>
+                  {value}
+                </Box>
+              ))}
+
+            <Separator />
+
+            {/* 5TH COLUMN */}
+            {toSortArr?.[4]?.[4] &&
+              Object.values(toSortArr[4][4]).map(({ id, value }, index) => (
+                <Box isActive={handleIsActive(id, pivot?.[4]?.[4])} key={id}>
+                  {value}
+                </Box>
+              ))}
+
+            <Separator />
+
+            {/* 6TH COLUMN */}
+            {toSortArr?.[4]?.[5] &&
+              Object.values(toSortArr[4][5]).map(({ id, value }, index) => (
+                <Box isActive={handleIsActive(id, pivot?.[4]?.[5])} key={id}>
+                  {value}
+                </Box>
+              ))}
           </FlipMove>
         </BoxHolder>
       )}
