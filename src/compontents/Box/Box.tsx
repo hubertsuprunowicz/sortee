@@ -84,6 +84,8 @@ const StyledBox = styled.button<{
 `
 
 const Box: React.FC<{
+  id?: string
+  className?: string
   color?: string
   size?: number
   isActive?: boolean
@@ -93,6 +95,8 @@ const Box: React.FC<{
 }> = forwardRef(
   (
     {
+      id,
+      className,
       color = "black",
       size = 4,
       isActive = true,
@@ -105,6 +109,8 @@ const Box: React.FC<{
   ) => {
     return (
       <StyledBox
+        id={id}
+        className={className + " box"}
         ref={ref as any}
         isActive={isDisabled ? false : isActive}
         isDisabled={isDisabled}
@@ -112,7 +118,6 @@ const Box: React.FC<{
         size={size}
         bg={bg}
         borderColor={borderColor}
-        className="box"
       >
         {children}
       </StyledBox>
