@@ -7,22 +7,15 @@ import { Link } from "gatsby"
 import { render } from "react-dom"
 import BubbleTheory from "../templates/bubble-theory"
 import QuickSort from "../templates/quick"
+import InsertionSort from "../templates/insertion"
+import InsertionTheory from "../templates/insertion-theory"
+import MergeSort from "../templates/merge"
+import QuickTheory from "../templates/quick-theory"
+import MergeTheory from "../templates/merge-theory"
 
 const Default: any = () => (
   <div>
     <h2>Default</h2>
-  </div>
-)
-
-const InsertionSort: any = () => (
-  <div>
-    <h2>InsertionSort</h2>
-  </div>
-)
-
-const MergeSort: any = () => (
-  <div>
-    <h2>MergeSort</h2>
   </div>
 )
 
@@ -32,10 +25,12 @@ const App = () => {
       <Router basepath="/sort">
         <BubbleTheory path="/bubble/theory" />
         <BubbleSort path="/bubble/visualization" />
-        <QuickSort path="/quick/theory" />
+        <QuickTheory path="/quick/theory" />
         <QuickSort path="/quick/visualization" />
-        <InsertionSort path="/insertion" />
-        <MergeSort path="/merge" />
+        <InsertionTheory path="/insertion/theory" />
+        <InsertionSort path="/insertion/visualization" />
+        <MergeTheory path="/merge/theory" />
+        <MergeSort path="/merge/visualization" />
         <Default path="/sort" />
       </Router>
     </Layout>

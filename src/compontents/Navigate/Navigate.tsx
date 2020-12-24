@@ -111,11 +111,11 @@ const toc: TableOfContent = {
     name: "Insertion sort",
     nav: [
       {
-        endpoint: "/sort/insertion",
+        endpoint: "/sort/insertion/theory",
         value: "Theory",
       },
       {
-        endpoint: "/sort/insertion",
+        endpoint: "/sort/insertion/visualization",
         value: "Visualization",
       },
     ],
@@ -125,11 +125,11 @@ const toc: TableOfContent = {
     name: "Merge sort",
     nav: [
       {
-        endpoint: "/sort/merge",
+        endpoint: "/sort/merge/theory",
         value: "Theory",
       },
       {
-        endpoint: "/sort/merge",
+        endpoint: "/sort/merge/visualization",
         value: "Visualization",
       },
     ],
