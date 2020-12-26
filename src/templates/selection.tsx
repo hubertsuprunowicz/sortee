@@ -44,15 +44,19 @@ const initToSortArr = numArr.reduce<{ [key: number]: SortValue }>(
   {}
 )
 
-const InsertionSort: any = () => {
+const SelectionSort: any = () => {
   const [step, setStep] = useState<number>(0)
   const [loop, setLoop] = useState<number>(0)
   const [compareIndex, setCompareIndex] = useState(0)
+  const [max, setMax] = useState(0)
   const [isEnd, setIsEnd] = useState(false)
-  const [lastIndex, setLastIndex] = useState(0)
+
   const [toSortArr, setToSortArr] = useState<{
     [key: number]: SortValue
   }>(initToSortArr)
+  const [lastIndex, setLastIndex] = useState(
+    Object.values(toSortArr).length - 1
+  )
 
   // const data = useStaticQuery(graphql`
   //   query {
@@ -65,34 +69,35 @@ const InsertionSort: any = () => {
   //   }
   // `)
 
-  const handleInsertionAlgorithmNextStep = () => {
+  const handleSelectionAlgorithmNextStep = () => {
     if (isEnd) return
 
-    // Swap handle
-    if (toSortArr[compareIndex].value > toSortArr[compareIndex + 1].value) {
+    if (toSortArr[compareIndex].value > toSortArr[max].value) {
+      setMax(compareIndex)
+    }
+
+    if (compareIndex === lastIndex) {
       // Swap
       setToSortArr(old => {
         return {
           ...old,
-          [compareIndex]: old[compareIndex + 1],
-          [compareIndex + 1]: old[compareIndex],
+          [lastIndex]: old[max],
+          [max]: old[lastIndex],
         }
       })
 
-      setCompareIndex(old => {
-        if (old > 0) return old - 1
-        return old
-      })
-    } else {
-      setLastIndex(old => {
-        setCompareIndex(old + 1)
-        return old + 1
-      })
+      // Go back to init
+      setCompareIndex(0)
+      setMax(0)
+      setLastIndex(old => old - 1)
+      return
     }
+
+    setCompareIndex(old => old + 1)
   }
 
   useEffect(() => {
-    if (lastIndex === Object.keys(toSortArr).length - 1) {
+    if (lastIndex === 0) {
       setIsEnd(true)
     }
   }, [lastIndex])
@@ -106,10 +111,9 @@ const InsertionSort: any = () => {
         <FlipMove>
           {Object.values(toSortArr).map(({ id, value }, index) => (
             <Box
-              bg={lastIndex >= index ? "#1abc9c" : undefined}
-              isActive={
-                (compareIndex === index || compareIndex + 1 === index) && !isEnd
-              }
+              bg={max === index ? "#1abc9c" : undefined}
+              isActive={compareIndex === index && !isEnd}
+              isDisabled={lastIndex < index || isEnd}
               key={id}
             >
               {value}
@@ -117,7 +121,7 @@ const InsertionSort: any = () => {
           ))}
         </FlipMove>
       </BoxHolder>
-      <ButtonNext onClick={handleInsertionAlgorithmNextStep}>
+      <ButtonNext onClick={handleSelectionAlgorithmNextStep}>
         <motion.svg
           width="70"
           height="28"
@@ -137,4 +141,4 @@ const InsertionSort: any = () => {
   )
 }
 
-export default InsertionSort
+export default SelectionSort

@@ -122,14 +122,14 @@ const toc: TableOfContent = {
   },
   3: {
     id: 3,
-    name: "Merge sort",
+    name: "Selection sort",
     nav: [
       {
-        endpoint: "/sort/merge/theory",
+        endpoint: "/sort/selection/theory",
         value: "Theory",
       },
       {
-        endpoint: "/sort/merge/visualization",
+        endpoint: "/sort/selection/visualization",
         value: "Visualization",
       },
     ],

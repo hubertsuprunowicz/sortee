@@ -9,9 +9,9 @@ import BubbleTheory from "../templates/bubble-theory"
 import QuickSort from "../templates/quick"
 import InsertionSort from "../templates/insertion"
 import InsertionTheory from "../templates/insertion-theory"
-import MergeSort from "../templates/merge"
 import QuickTheory from "../templates/quick-theory"
-import MergeTheory from "../templates/merge-theory"
+import SelectionTheory from "../templates/selection-theory"
+import SelectionSort from "../templates/selection"
 
 const Default: any = () => (
   <div>
@@ -29,8 +29,8 @@ const App = () => {
         <QuickSort path="/quick/visualization" />
         <InsertionTheory path="/insertion/theory" />
         <InsertionSort path="/insertion/visualization" />
-        <MergeTheory path="/merge/theory" />
-        <MergeSort path="/merge/visualization" />
+        <SelectionTheory path="/selection/theory" />
+        <SelectionSort path="/selection/visualization" />
         <Default path="/sort" />
       </Router>
     </Layout>
