@@ -46,7 +46,6 @@ const initToSortArr = numArr.reduce<{ [key: number]: SortValue }>(
 
 const InsertionSort: any = () => {
   const [step, setStep] = useState<number>(0)
-  const [loop, setLoop] = useState<number>(0)
   const [compareIndex, setCompareIndex] = useState(0)
   const [isEnd, setIsEnd] = useState(false)
   const [lastIndex, setLastIndex] = useState(0)
@@ -54,19 +53,23 @@ const InsertionSort: any = () => {
     [key: number]: SortValue
   }>(initToSortArr)
 
-  // const data = useStaticQuery(graphql`
-  //   query {
-  //     allInsertionJson {
-  //       nodes {
-  //         step
-  //         text
-  //       }
-  //     }
-  //   }
-  // `)
+  const data = useStaticQuery(graphql`
+    query {
+      allInsertionJson {
+        nodes {
+          step
+          text
+        }
+      }
+    }
+  `)
 
   const handleInsertionAlgorithmNextStep = () => {
     if (isEnd) return
+    if (step < 2) {
+      setStep(old => old + 1)
+      return
+    }
 
     // Swap handle
     if (toSortArr[compareIndex].value > toSortArr[compareIndex + 1].value) {
@@ -83,24 +86,29 @@ const InsertionSort: any = () => {
         if (old > 0) return old - 1
         return old
       })
+
+      setStep(3)
     } else {
       setLastIndex(old => {
         setCompareIndex(old + 1)
         return old + 1
       })
+
+      setStep(4)
     }
   }
 
   useEffect(() => {
     if (lastIndex === Object.keys(toSortArr).length - 1) {
       setIsEnd(true)
+      setStep(5)
     }
   }, [lastIndex])
 
   return (
     <Wrapper>
       <TextHolder>
-        <h2>TEXT</h2>
+        <h2>{data.allInsertionJson.nodes[step].text}</h2>
       </TextHolder>
       <BoxHolder>
         <FlipMove>

@@ -12,12 +12,7 @@ import InsertionTheory from "../templates/insertion-theory"
 import QuickTheory from "../templates/quick-theory"
 import SelectionTheory from "../templates/selection-theory"
 import SelectionSort from "../templates/selection"
-
-const Default: any = () => (
-  <div>
-    <h2>Default</h2>
-  </div>
-)
+import About from "../templates/about"
 
 const App = () => {
   return (
@@ -31,7 +26,7 @@ const App = () => {
         <InsertionSort path="/insertion/visualization" />
         <SelectionTheory path="/selection/theory" />
         <SelectionSort path="/selection/visualization" />
-        <Default path="/sort" />
+        <About path="/about" />
       </Router>
     </Layout>
   )

@@ -46,7 +46,6 @@ const initToSortArr = numArr.reduce<{ [key: number]: SortValue }>(
 
 const SelectionSort: any = () => {
   const [step, setStep] = useState<number>(0)
-  const [loop, setLoop] = useState<number>(0)
   const [compareIndex, setCompareIndex] = useState(0)
   const [max, setMax] = useState(0)
   const [isEnd, setIsEnd] = useState(false)
@@ -58,25 +57,38 @@ const SelectionSort: any = () => {
     Object.values(toSortArr).length - 1
   )
 
-  // const data = useStaticQuery(graphql`
-  //   query {
-  //     allInsertionJson {
-  //       nodes {
-  //         step
-  //         text
-  //       }
-  //     }
-  //   }
-  // `)
+  const data = useStaticQuery(graphql`
+    query {
+      allSelectionJson {
+        nodes {
+          step
+          text
+        }
+      }
+    }
+  `)
 
   const handleSelectionAlgorithmNextStep = () => {
     if (isEnd) return
-
-    if (toSortArr[compareIndex].value > toSortArr[max].value) {
-      setMax(compareIndex)
+    if (step < 4) {
+      setStep(old => old + 1)
+      return
     }
 
-    if (compareIndex === lastIndex) {
+    if (toSortArr[compareIndex].value > toSortArr[max].value) {
+      setStep(6)
+      setMax(compareIndex)
+    } else {
+      setStep(5)
+    }
+
+    setCompareIndex(old => old + 1)
+  }
+
+  useEffect(() => {
+    if (compareIndex === lastIndex + 1) {
+      setStep(7)
+
       // Swap
       setToSortArr(old => {
         return {
@@ -91,13 +103,14 @@ const SelectionSort: any = () => {
       setMax(0)
       setLastIndex(old => old - 1)
       return
+    } else {
+      // setStep(8)
     }
-
-    setCompareIndex(old => old + 1)
-  }
+  }, [compareIndex])
 
   useEffect(() => {
     if (lastIndex === 0) {
+      setStep(9)
       setIsEnd(true)
     }
   }, [lastIndex])
@@ -105,7 +118,13 @@ const SelectionSort: any = () => {
   return (
     <Wrapper>
       <TextHolder>
-        <h2>TEXT</h2>
+        {step === 3 && (
+          <h2>
+            {data.allSelectionJson.nodes[step].text} {compareIndex}
+          </h2>
+        )}
+
+        {step !== 3 && <h2>{data.allSelectionJson.nodes[step].text}</h2>}
       </TextHolder>
       <BoxHolder>
         <FlipMove>

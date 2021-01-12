@@ -7,7 +7,7 @@ import { Link } from "gatsby"
 const Wrapper = styled.div`
   display: flex;
   height: 100%;
-  width: 30%;
+  width: 35%;
 
   @media only screen and (max-width: ${theme.breakpoints[2]}px) {
     display: none;
@@ -34,7 +34,7 @@ const NavLine = styled.div`
 const Container = styled.ul`
   display: flex;
   flex-direction: column;
-  font-size: ${theme.fontSizes[7]}rem;
+  font-size: ${theme.fontSizes[5]}rem;
   list-style-type: none;
 
   ul {
@@ -80,67 +80,67 @@ type TableOfContent = { [key: string]: NavContent }
 const toc: TableOfContent = {
   0: {
     id: 0,
-    name: "Bubble sort",
+    name: "Sortowanie babelkowe",
     nav: [
       {
         endpoint: "/sort/bubble/theory",
-        value: "Theory",
+        value: "Teoria",
       },
       {
         endpoint: "/sort/bubble/visualization",
-        value: "Visualization",
+        value: "Wizualizacja",
       },
     ],
   },
   1: {
     id: 1,
-    name: "Quick sort",
+    name: "Szybkie sortowanie",
     nav: [
       {
         endpoint: "/sort/quick/theory",
-        value: "Theory",
+        value: "Teoria",
       },
       {
         endpoint: "/sort/quick/visualization",
-        value: "Visualization",
+        value: "Wizualizacja",
       },
     ],
   },
   2: {
     id: 2,
-    name: "Insertion sort",
+    name: "Sortowanie przez wstawianie",
     nav: [
       {
         endpoint: "/sort/insertion/theory",
-        value: "Theory",
+        value: "Teoria",
       },
       {
         endpoint: "/sort/insertion/visualization",
-        value: "Visualization",
+        value: "Wizualizacja",
       },
     ],
   },
   3: {
     id: 3,
-    name: "Selection sort",
+    name: "Sortowanie przez wybieranie",
     nav: [
       {
         endpoint: "/sort/selection/theory",
-        value: "Theory",
+        value: "Teoria",
       },
       {
         endpoint: "/sort/selection/visualization",
-        value: "Visualization",
+        value: "Wizualizacja",
       },
     ],
   },
   4: {
     id: 4,
-    name: "About",
+    name: "O projekcie",
     nav: [
       {
         endpoint: "/sort/about",
-        value: "TODO...",
+        value: "Informacje",
       },
     ],
   },

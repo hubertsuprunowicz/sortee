@@ -125,6 +125,9 @@ const QuickSort: React.FC<{ path: string }> = () => {
         old[0][0] = toSortArr[0][0][middle].id
         return old
       })
+
+      setStep(1)
+      return
     }
 
     if (step === 1) {
@@ -153,6 +156,8 @@ const QuickSort: React.FC<{ path: string }> = () => {
       })
 
       setDivide(old => old + 1)
+      setStep(2)
+      return
     }
 
     if (step > 1) {
@@ -166,6 +171,8 @@ const QuickSort: React.FC<{ path: string }> = () => {
             setPivotIter(old => old + 1)
           }
         })
+        setStep(3)
+        return
       } else {
         toSortArr[divide].forEach((it, index) => {
           if (it.length > 0) {
@@ -175,10 +182,12 @@ const QuickSort: React.FC<{ path: string }> = () => {
 
         setDivide(old => old + 1)
       }
+      setStep(4)
+      return
     }
 
     // Indexing
-    setStep(old => old + 1)
+    // setStep(old => old + 1)
   }
 
   const sortArr = (indexOfArr: number) => {
@@ -225,8 +234,9 @@ const QuickSort: React.FC<{ path: string }> = () => {
 
   // End handler
   useEffect(() => {
-    if (pivotIter === TOTAL) {
+    if (pivotIter === TOTAL && !isEnd) {
       setIsEnd(true)
+      setStep(5)
 
       animationRef.current = anime({
         targets: ".pivot",
@@ -260,7 +270,7 @@ const QuickSort: React.FC<{ path: string }> = () => {
     <Wrapper>
       {/* TODO: GraphQL query from json */}
       <TextHolder>
-        <h2>xxx</h2>
+        <h2> {data.allQuickJson.nodes[step].text} </h2>
       </TextHolder>
 
       {toSortArr.map((row, rowIndex) => (

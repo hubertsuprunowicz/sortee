@@ -1,1 +1,12 @@
-[]
+[
+    {"step": 0, "text":"Rozpoczecie sortowania przez wybieranie"},
+    {"step": 1, "text":"Dla każdego przebiegu będziemy przesuwać się od lewej do prawej, szukając następnej największej wartości. Gdy zostanie znaleziona, zostanie przeniesiona na ostateczną pozycję (zostaną one pokazane szarym kolorem)."},
+    {"step": 2, "text":"Dla każdego elementu poruszającego się po liście: największy dotychczas widziany jest zawsze niebieski"},
+    {"step": 3, "text":"Analiza rekordu na miejscu"},
+    {"step": 4, "text":"Inicjacja maksymalej wartosci"},
+    {"step": 5, "text":"Porównanie elementu z najwiekszym widzianym - dotychczasowy element maksymalny jest wiekszy"},
+    {"step": 6, "text":"Porównanie elementu z najwiekszym widzianym - znaleziono wiekszy element, zapisujemy nowy indeks maksymalnej wartości"},
+    {"step": 7, "text":"Wsadzenie najwiekszego elementu z przodu tablicy, powrot do poczatku tablicy"},
+    {"step": 8, "text":"Koniec przejscia"},
+    {"step": 9, "text":"Koniec"}
+]
