@@ -31,11 +31,11 @@ const StyledBox = styled.button<{
   }
 
   // TODO: calc(x - size)
-  min-width: 70px;
+  min-width: 50px;
   width: 8vw;
   max-width: 110px;
 
-  min-height: 70px;
+  min-height: 50px;
   height: 8vw;
   max-height: 110px;
 

@@ -24,7 +24,12 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   * {
-    font-family: Gaegu;
+    /* font-family: "Baloo Thambi 2"; */
+    font-family: "Baloo Thambi 2";
+    /* font-size: 3rem; */
+    font-weight: 400;
+    /* letter-spacing: 1px; */
+    /* font-style: italic; */
   }
 
   body {

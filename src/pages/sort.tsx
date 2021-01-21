@@ -26,7 +26,7 @@ const App = () => {
         <InsertionSort path="/insertion/visualization" />
         <SelectionTheory path="/selection/theory" />
         <SelectionSort path="/selection/visualization" />
-        <About path="/about" />
+        <About path="/about" default />
       </Router>
     </Layout>
   )

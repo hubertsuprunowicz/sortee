@@ -3,14 +3,15 @@ import { theme } from "../../theme"
 import { AnimatePresence, motion } from "framer-motion"
 import React, { useEffect, useRef, useState } from "react"
 import { Link } from "gatsby"
+import Hamburger from "hamburger-react"
 
 const Wrapper = styled.div`
   display: flex;
   height: 100%;
   width: 35%;
 
-  @media only screen and (max-width: ${theme.breakpoints[2]}px) {
-    display: none;
+  @media only screen and (max-width: 980px) {
+    width: 0%;
   }
 `
 
@@ -21,7 +22,7 @@ const NavLine = styled.div`
 
   ::before {
     content: "";
-    background-color: #e8c50d;
+    background-color: #fed330;
     display: block;
     width: 8px;
     height: 100%;
@@ -35,6 +36,7 @@ const Container = styled.ul`
   display: flex;
   flex-direction: column;
   font-size: ${theme.fontSizes[5]}rem;
+  font-weight: 600;
   list-style-type: none;
 
   ul {
@@ -56,6 +58,18 @@ const Container = styled.ul`
       text-decoration: inherit;
     }
   }
+`
+
+const MobileContainer = styled(Container)`
+  position: absolute;
+  top: 50px;
+  left: 0;
+  background-color: #efd23b;
+  box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 5px;
+  padding: 30px;
+  padding-left: 50px;
+  z-index: 10;
 `
 
 const Cursor = styled(motion.div)`
@@ -210,10 +224,30 @@ const Accordion: React.FC<{
   )
 }
 
+function getWindowDimensions() {
+  const { innerWidth: width, innerHeight: height } = window
+  return {
+    width,
+    height,
+  }
+}
+
 const Navigate = () => {
-  const [isOpen, setIsOpen] = useState(false)
+  const [isOpen, setOpen] = useState(false)
   const [expanded, setExpanded] = useState<number>(0)
   const [cursor, setCursor] = useState<number>(0)
+  const [windowDimensions, setWindowDimensions] = useState(
+    getWindowDimensions()
+  )
+
+  useEffect(() => {
+    function handleResize() {
+      setWindowDimensions(getWindowDimensions())
+    }
+
+    window.addEventListener("resize", handleResize)
+    return () => window.removeEventListener("resize", handleResize)
+  }, [])
 
   useEffect(() => {
     if (expanded === -1) setCursor(0)
@@ -221,20 +255,41 @@ const Navigate = () => {
 
   return (
     <Wrapper>
-      <NavLine>
-        <Cursor animate={{ top: cursor }} />
-      </NavLine>
-      <Container>
-        {Object.values(toc).map(it => (
-          <Accordion
-            key={it.id}
-            content={it}
-            expanded={expanded}
-            setExpanded={setExpanded}
-            setCursor={setCursor}
-          />
-        ))}
-      </Container>
+      {windowDimensions.width < 980 ? (
+        <>
+          <Hamburger size={40} toggled={isOpen} toggle={setOpen} />
+          {isOpen && (
+            <MobileContainer>
+              {Object.values(toc).map(it => (
+                <Accordion
+                  key={it.id}
+                  content={it}
+                  expanded={expanded}
+                  setExpanded={setExpanded}
+                  setCursor={setCursor}
+                />
+              ))}
+            </MobileContainer>
+          )}
+        </>
+      ) : (
+        <>
+          <NavLine>
+            <Cursor animate={{ top: cursor }} />
+          </NavLine>
+          <Container>
+            {Object.values(toc).map(it => (
+              <Accordion
+                key={it.id}
+                content={it}
+                expanded={expanded}
+                setExpanded={setExpanded}
+                setCursor={setCursor}
+              />
+            ))}
+          </Container>
+        </>
+      )}
     </Wrapper>
   )
 }

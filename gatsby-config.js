@@ -53,6 +53,11 @@ module.exports = {
               variants: ["400", "700"],
               // subsets: ["latin-ext"],
             },
+            {
+              family: "Baloo Thambi 2",
+              variants: ["400", "700"],
+              // subsets: ["latin-ext"],
+            },
           ],
         },
       },

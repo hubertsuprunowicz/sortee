@@ -5,6 +5,8 @@ import styled from "styled-components"
 import { GlobalStyle, theme } from "../../theme"
 import { AnimatePresence, motion } from "framer-motion"
 import { Navigate } from "../Navigate"
+import { slide as Menu } from "react-burger-menu"
+import Hamburger from "hamburger-react"
 
 const SiteLayout = styled.div`
   height: 100%;
