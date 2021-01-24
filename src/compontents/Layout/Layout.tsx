@@ -40,6 +40,10 @@ const Main = styled.main`
   height: 100%;
   padding: 0 3vw;
 
+  @media only screen and (max-width: 980px) {
+    font-size: 15px !important;
+  }
+
   /* Routing */
   > div {
     height: 100%;

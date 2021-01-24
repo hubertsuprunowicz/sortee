@@ -1,16 +1,14 @@
 module.exports = {
+  pathPrefix: "/sort-it",
   siteMetadata: {
     title: `Sortee`,
+    siteUrl: "http://localhost:8000/",
     description: `Learn how the sort algorithm works`,
     author: `Hubert Suprunowicz`,
     menuLinks: [
       {
         name: "Home",
         link: "/",
-      },
-      {
-        name: "Bubble sort",
-        link: "/bubble",
       },
     ],
   },
@@ -23,6 +21,7 @@ module.exports = {
     // To learn more, visit: https://gatsby.dev/offline
     // `gatsby-plugin-offline`,
     `gatsby-plugin-typescript`,
+    `gatsby-plugin-sharp`,
     `gatsby-plugin-styled-components`,
     `gatsby-plugin-react-leaflet`,
     `gatsby-transformer-json`,

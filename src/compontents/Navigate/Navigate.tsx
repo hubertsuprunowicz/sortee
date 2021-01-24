@@ -224,30 +224,25 @@ const Accordion: React.FC<{
   )
 }
 
-function getWindowDimensions() {
-  const { innerWidth: width, innerHeight: height } = window
-  return {
-    width,
-    height,
-  }
-}
-
 const Navigate = () => {
   const [isOpen, setOpen] = useState(false)
   const [expanded, setExpanded] = useState<number>(0)
   const [cursor, setCursor] = useState<number>(0)
-  const [windowDimensions, setWindowDimensions] = useState(
-    getWindowDimensions()
-  )
+  const [windowDimensions, setWindowDimensions] = useState<any>(null)
 
   useEffect(() => {
+    if (typeof window === `undefined`) return
+
     function handleResize() {
-      setWindowDimensions(getWindowDimensions())
+      setWindowDimensions({
+        width: window.innerWidth,
+        height: window.innerHeight,
+      })
     }
 
     window.addEventListener("resize", handleResize)
     return () => window.removeEventListener("resize", handleResize)
-  }, [])
+  })
 
   useEffect(() => {
     if (expanded === -1) setCursor(0)
@@ -255,7 +250,7 @@ const Navigate = () => {
 
   return (
     <Wrapper>
-      {windowDimensions.width < 980 ? (
+      {windowDimensions && windowDimensions?.width < 980 ? (
         <>
           <Hamburger size={40} toggled={isOpen} toggle={setOpen} />
           {isOpen && (
