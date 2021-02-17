@@ -15,6 +15,7 @@ const Flex = styled.div`
   height: 100%;
   margin-bottom: 300px;
   text-align: center;
+  
 `
 
 const About: any = () => {
